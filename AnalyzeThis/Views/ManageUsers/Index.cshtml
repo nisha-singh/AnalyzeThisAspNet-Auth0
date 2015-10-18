@@ -1,0 +1,95 @@
+﻿
+<!DOCTYPE html>
+<script src="https://cdn.auth0.com/w2/auth0-6.7.min.js"></script>
+<script type="text/javascript">
+  'use strict';
+  const auth0 = new Auth0({
+      clientID: '@System.Configuration.ConfigurationManager.AppSettings["auth0:ClientId"]',
+      domain: '@System.Configuration.ConfigurationManager.AppSettings["auth0:Domain"]',
+      callbackURL: '@System.Configuration.ConfigurationManager.AppSettings["auth0:CallbackURL"]'
+  });
+  //...
+
+  var email = $('email').val();
+    auth0.requestMagicLink({ email: email , send: 'link'}, function(err) {
+        if (err) {
+            alert('error sending e-mail: ' + err.error_description);
+            return;
+        }
+        // the request was successful and you should
+        // receive the magic link in the specified email
+        alert('email sent!');
+    });
+    }
+</script>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+
+    <style>
+        table.UserPage {
+            width: 100%;
+            border: 1px solid #d4d4d4;
+        }
+
+            table.UserPage th, td {
+                padding: 10px;
+            }
+
+            table.UserPage th {
+                width: 40px;
+                left: 0px;
+            }
+    </style>
+
+</head>
+<body>
+    <h1>New User</h1>
+    @using (Html.BeginForm("Create", "ManageUsers", FormMethod.Post))
+    {
+    <div>
+        <table class="UserPage">
+            <tr>
+                <th>
+                    <h4>Given Name</h4>
+                </th>
+                <th>
+                    <h4>Family Name</h4>
+                </th>
+                <th>
+                    <h4>Email</h4>
+                </th>
+            </tr>
+            <tr>
+                <td>
+
+                    @Html.TextBox("firstname")
+
+                </td>
+                <td>
+                    @Html.TextBox("lastname")
+
+                </td>
+                <td>
+                    @Html.TextBox("email")
+
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div>
+        <br />
+        <input type="submit" id="submit" value="Create user and send passwordless link" />
+        <br />
+        <br />
+        
+    </div>
+    }
+
+</body>
+</html>
+

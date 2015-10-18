@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="https://cdn.auth0.com/js/lock-7.9.min.js"></script>
+<script type="text/javascript">
+
+  var lock = new Auth0Lock('jxTWCLo0TnGtEtGVH2yWkd9oexhoWzG6', 'nishatest.auth0.com');
+
+
+  function signin() {
+    lock.show({
+        callbackURL: 'http://localhost:53562/LoginCallback.ashx'
+      , responseType: 'code'
+      , authParams: {
+        scope: 'openid profile'
+      }
+    });
+  }
+</script>
+<br/>
+<br />
+<button onclick="window.signin();">Login</button>
+
